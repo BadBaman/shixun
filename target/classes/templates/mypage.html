@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>个人主页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <!--<link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="eui/element-ui.css">-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="vue.min.js"></script>
+    <script src="vue/vue-resource.js"></script>
+    <script src="index.js"></script>
+    <script src="comm/Ajax.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="hello">主页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="fabricnetwork">浏览区块链网络</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="file">查看文件</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        业务
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="upload">上传文件</a>
+                        <a class="dropdown-item" href="file">下载文件</a>
+                        <a class="dropdown-item" href="history">浏览用户历史</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="transaction">交易</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login">登陆</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <form  class="form-inline my-2 my-lg-0" action="upload" method="post" enctype="multipart/form-data">
+                    <input type="file"  name="file" style="display:list-item"/>
+                    <label>
+                        <input type="submit"/>
+                    </label>
+                </form>
+                <li class="nav-item">
+                    <a class="nav-link" href="file">下载文件</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+            <li class="nav-item">
+                <a class="nav-link" href="hello">退出</a>
+            </li>
+        </div>
+    </nav>
+    <div id="app">
+        <template>
+            <div class="demo-type">
+                <div>
+                    <el-avatar icon="el-icon-user-solid"></el-avatar>
+                </div>
+                <p th:text="'用户' + ${name} + '的个人主页'"></p>
+                <!--<div>
+                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                </div>-->
+                <!--<div>
+                    <el-avatar> user </el-avatar>
+                </div>-->
+            </div>
+        </template>
+        <el-badge :value="12" class="item">
+            <el-button size="small">组织信息</el-button>
+        </el-badge>
+        <el-badge :value="3" class="item">
+            <el-button size="small">系统提示</el-button>
+        </el-badge>
+
+        <el-dropdown trigger="click">
+  <span class="el-dropdown-link">
+    点我查看<i class="el-icon-caret-bottom el-icon--right"></i>
+  </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item class="clearfix">
+                    下载请求
+                    <el-badge class="mark" :value="3"></el-badge>
+                </el-dropdown-item>
+                <el-dropdown-item class="clearfix">
+                    组织信息
+                    <el-badge class="mark" :value="12"></el-badge>
+                </el-dropdown-item>
+                <el-dropdown-item class="clearfix">
+                    系统提示
+                    <el-badge class="mark" :value="3"></el-badge>
+                </el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
+        <br><br>
+        <el-tabs type="border-card">
+            <el-tab-pane>
+                <span slot="label"><i class="el-icon-date"></i> 我的主页功能</span>
+                <li>我的主页功能</li>
+                <div class="block">
+                    <span class="demonstration">选择组织节点</span>
+                    <el-cascader
+                            :options="options"
+                            :props="props"
+                            clearable></el-cascader>
+                </div>
+                <br>
+                <div class="block">
+                    <span class="demonstration">选择文件</span>
+                    <el-cascader
+                            :options="options"
+                            :props="props"
+                            collapse-tags
+                            clearable></el-cascader>
+                </div>
+                <br><br><br><br><br><br><br><br><br><br><br>
+            </el-tab-pane>
+            <el-tab-pane label="我的组织">
+                <li>组织中心</li><br><br><br><br><br><br><br><br><br><br><br><br>
+            </el-tab-pane>
+            <el-tab-pane label="我的节点">
+                <li>节点管理</li><br><br><br><br><br><br><br><br><br><br><br><br>
+            </el-tab-pane>
+            <el-tab-pane label="我的文件">
+                <li>组织中心</li><br><br><br><br><br><br><br><br><br><br><br><br>
+            </el-tab-pane>
+            <el-tab-pane label="我的订单">
+                <li>订单管理</li><br><br><br><br><br><br><br><br><br><br><br><br>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+
+</body>
+</html>
+<script>
+    var Main = {
+        data() {
+            return {
+                props: { multiple: true },
+                options: [{
+                    value: 1,
+                    label: '组织',
+                    children: [{
+                        value: 2,
+                        label: '医院',
+                        children: [
+                            { value: 3, label: '节点1' },
+                            { value: 4, label: '节点2' },
+                            { value: 5, label: '节点3' }
+                        ]
+                    }, {
+                        value: 7,
+                        label: '研究所',
+                        children: [
+                            { value: 8, label: '研究所1' },
+                            { value: 9, label: '研究所2' },
+                            { value: 10, label: '研究所3' }
+                        ]
+                    }, {
+                        value: 12,
+                        label: '其他组织',
+                        children: [
+                            { value: 13, label: '其他组织1' },
+                            { value: 14, label: '其他组织2' },
+                            { value: 15, label: '其他组织3' }
+                        ]
+                    }]
+                }, {
+                    value: 17,
+                    label: '文件',
+                    children: [{
+                        value: 18,
+                        label: '重要文件',
+                        children: [
+                            { value: 19, label: '文件1' },
+                            { value: 20, label: '文件2' }
+                        ]
+                    }, {
+                        value: 21,
+                        label: '其他文件',
+                        children: [
+                            { value: 22, label: '文件3' },
+                            { value: 23, label: '文件4' }
+                        ]
+                    }]
+                }]
+            };
+        }
+    };
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+    //new Vue().$mount('#app')
+</script>
