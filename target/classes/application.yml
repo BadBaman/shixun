@@ -1,0 +1,10 @@
+spring:
+  datasource: # 数据库配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myfirst?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    username: kaiyuan
+    password: qweasd
+MyBatis-plus:
+  #信息输出设置
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
